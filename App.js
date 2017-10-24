@@ -14,6 +14,28 @@ export default class App extends React.Component {
   }
 }
 
+
+//left off here.  Starting with navigation.
+const Tabs = TabNavigator({})
+const MainNavigator = StackNavigator({
+  Home: {
+    screen: Tabs,
+  },
+  DeckSceen: {
+    screen: EntryDetail,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      },
+    },
+  },
+  CardScreen: {
+    
+  }
+});
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
