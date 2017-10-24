@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        /* https://code.visualstudio.com/docs/languages/jsconfig */
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}
