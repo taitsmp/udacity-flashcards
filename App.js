@@ -14,7 +14,6 @@ export default class App extends React.Component {
   }
 }
 
-
 //left off here.  Starting with navigation.
 const Tabs = TabNavigator({})
 const MainNavigator = StackNavigator({
