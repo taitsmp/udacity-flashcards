@@ -1,9 +1,8 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import reducer from './reducers'
+import configureStore from './store/configureStore'
 import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import DeckListView from './components/DeckListView'
 import NewDeckView from './components/NewDeckView'
@@ -15,8 +14,9 @@ import FlashStatusBar from './components/FlashStatusBar'
 
 export default class App extends React.Component {
   render() {
+    const store = configureStore()
     return (
-      <Provider store={createStore(reducer)}>
+      <Provider store={store}>
         <View style={{flex: 1}}>
           <FlashStatusBar barStyle="dark-content" />
           <MainNavigator />

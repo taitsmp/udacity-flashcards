@@ -1,3 +1,14 @@
+# Flashcards
+
+Inspiration for this code was taken from the following
+
+* https://github.com/udacity/reactnd-UdaciFitness-complete/tree/app-prep
+* https://github.com/reactjs/redux/blob/master/examples/real-world
+* https://github.com/StephenGrider/AdvancedReactNative/tree/master/swipe
+
+
+# Generated React Native ReadMe Below
+
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
