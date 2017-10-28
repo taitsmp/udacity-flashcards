@@ -5,6 +5,14 @@ import { fetchDecks } from '../utils/api'
 
 class QuizView extends Component {
 
+    render() {
+        return (
+            <View>
+              <Text>Quiz View</Text>
+            </View>
+        )
+    }
+
 }
 
 export default connect()(QuizView)

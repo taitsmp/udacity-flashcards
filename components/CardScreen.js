@@ -6,6 +6,7 @@ import { fetchDecks } from '../utils/api'
 class CardScreen extends Component {
     render() {
 
+        
         const { deck, cardIndex } = this.props
         const question = deck.questions[cardIndex].question
         return (
