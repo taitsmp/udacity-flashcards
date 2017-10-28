@@ -16,18 +16,13 @@ class DeckListView extends Component {
         const {navigation, decks } = this.props
         const deck = decks[deckIndex]
 
-        console.log('some props')
-        console.log(deck)
-        console.log(deckIndex)
-        //grab the right deck.
-
-        //pass deck and question index to the cardscreen.
+        //pass deck and question index to the deckscreen
 
         //Alert.alert('You tapped the button!')
-        //LEFT OFF HERE: this is wrong.  Not how you pass in props.
+        
         //https://reactnavigation.org/docs/navigators/stack
-        //https://github.com/react-community/react-navigation/issues/935
-        navigation.navigate('CardScreen', { deck, cardIndex:0 })
+        //this goes to props.navigation.state.params.deck
+        navigation.navigate('DeckScreen', { deck })
     }
 
     renderDeckCover = ({ item, index, separator }) => {

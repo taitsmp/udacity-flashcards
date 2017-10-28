@@ -8,73 +8,84 @@ import DeckListView from './components/DeckListView'
 import NewDeckView from './components/NewDeckView'
 import QuizView from './components/QuizView'
 import CardScreen from './components/CardScreen'
+import DeckScreen from './components/DeckScreen'
 import FlashStatusBar from './components/FlashStatusBar'
 
-
-
 export default class App extends React.Component {
-  render() {
-    const store = configureStore()
-    return (
-      <Provider store={store}>
-        <View style={{flex: 1}}>
-          <FlashStatusBar barStyle="dark-content" />
-          <MainNavigator />
-        </View>
-      </Provider>
-    );
-  }
+    render() {
+        const store = configureStore()
+        return (
+            <Provider store={store}>
+                <View style={{ flex: 1 }}>
+                    <FlashStatusBar barStyle="dark-content" />
+                    <MainNavigator />
+                </View>
+            </Provider>
+        )
+    }
 }
 
 //left off here.  Starting with navigation.
 const Tabs = TabNavigator({
-  DeckListView: {
-    screen: DeckListView,
-    navigationOptions: {
-      tabBarLabel: 'Decks',
-      tabBarIcon: ({ tintColor }) => <MaterialCommunityIcons name='cards-outline' size={30} color={tintColor} />
+    DeckListView: {
+        screen: DeckListView,
+        navigationOptions: {
+            tabBarLabel: 'Decks',
+            tabBarIcon: ({ tintColor }) => (
+                <MaterialCommunityIcons name="cards-outline" size={30} color={tintColor} />
+            )
+        }
     },
-  },
-  NewDeckView: {
-    screen: NewDeckView,
-    navigationOptions: {
-      tabBarLabel: '',
-      tabBarIcon: ({ tintColor }) => <FontAwesome name='plus' size={30} color={tintColor} />
-    },
-  }
+    NewDeckView: {
+        screen: NewDeckView,
+        navigationOptions: {
+            tabBarLabel: '',
+            tabBarIcon: ({ tintColor }) => <FontAwesome name="plus" size={30} color={tintColor} />
+        }
+    }
 })
 const MainNavigator = StackNavigator({
-  Home: {
-    screen: Tabs,
-  },
-  QuizView: {
-    screen: QuizView,
-    navigationOptions: {
-      /*
+    Home: {
+        screen: Tabs
+    },
+    QuizView: {
+        screen: QuizView,
+        navigationOptions: {
+            /*
       headerTintColor: white,
       headerStyle: {
         backgroundColor: purple,
       },*/
+        }
     },
-  },
-  CardScreen: {
-    screen: CardScreen,
-    navigationOptions: {
-      /*
+    DeckScreen: {
+        screen: DeckScreen,
+        navigationOptions: ({  navigation }) => ({
+            title: `${navigation.state.params.deck.title}`
+            /*
       headerTintColor: white,
       headerStyle: {
         backgroundColor: purple,
       },*/
+        })
     },
-  }
-});
-
+    CardScreen: {
+        screen: CardScreen,
+        navigationOptions: {
+            /*
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      },*/
+        }
+    }
+})
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
+})
