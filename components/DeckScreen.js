@@ -3,13 +3,14 @@ import { View, Text, StyleSheet, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import { Card, Button } from 'react-native-elements'
 
+
 class DeckScreen extends Component {
     onPressStartQuiz() {
-        Alert("You're starting a quiz.")
+        Alert.alert("You're starting a quiz.")
     }
 
     onPressAddNewCard() {
-        Alert("You're adding a card.")
+        Alert.alert("You're adding a card.")
     }
 
     render() {
@@ -21,10 +22,9 @@ class DeckScreen extends Component {
                 <View>
                     <Text>{numCardsMsg}</Text>
 
-//LEFT OFF HERE...buttons broken. 
 
                     <Button title="Start Quiz" onPress={() => this.onPressStartQuiz()} />
-                    <Button title="Add New Card" onPress={() => this.onPressAddNewCard()} />
+                    <Button title="Add New Card" onPress={this.onPressAddNewCard} />
                 </View>
             </Card>
         )
