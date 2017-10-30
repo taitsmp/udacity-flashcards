@@ -10,12 +10,12 @@ export function fetchDecks() {
     })
 }
 
-export function AddNewDeck(deck) {
+export function addNewDeck(deck) {
     let decks = fetchDecks().push(deck)
     return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({  decks  }))
 }
 
-export function AddNewCard({ deckPosition, card  }) {
+export function addNewCard({ deckPosition, card  }) {
     let decks = fetchDecks()
     decks[deckPosition].questions.push(card)
     return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({ decks  }))
