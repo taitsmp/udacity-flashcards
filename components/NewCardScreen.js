@@ -5,9 +5,8 @@ import { addNewCard } from '../actions/decks'
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import * as Utils from '../utils/utils'
 
-
 class NewCardScreen extends Component {
-  static defaultProps = {
+  state = {
     question: undefined,
     answer: undefined,
     answerMissing: false,
@@ -15,27 +14,31 @@ class NewCardScreen extends Component {
   }
 
   handleSubmit() {
-    let newState = {}
+    let answerMissing, questionMissing
     const { deckIndex } = this.props
     const { question, answer } = this.state
 
-    if (answer == null) {
-      newState.answerMissing = true
-    }
-    if (question == null) {
-      newState.questionMissing = true
-    }
+    answerMissing = !answer
+    questionMissing = !question
 
-    if (Utils.isEmpty(newState)) {
-
+    console.log(answerMissing)
+    console.log(questionMissing)
+    if (!answerMissing && !questionMissing) {
       const card = {
         question,
         answer
       }
 
-       this.props.addNewCard(deckIndex, card)
-    }
+      console.log("about to add a new card")
+      this.props.addNewCard(deckIndex, card)
 
+      //TODO: change the state here to show the user the card was created?
+    } else {
+      this.setState({
+        answerMissing,
+        questionMissing
+      })
+    }
   }
 
   handleTextChange(type, input) {
@@ -45,16 +48,15 @@ class NewCardScreen extends Component {
   }
 
   render() {
+    const { questionMissing, answerMissing  } = this.state
     return (
       <View>
         <FormLabel>Question</FormLabel>
         <FormInput onChangeText={text => this.handleTextChange('question', text)} />
-        if (this.state.QuestionMissing)
-        {<FormValidationMessage>Please enter a question.</FormValidationMessage>}
+        {questionMissing && <FormValidationMessage>Please enter a question.</FormValidationMessage>}
         <FormLabel>Answer</FormLabel>
         <FormInput onChangeText={text => this.handleTextChange('answer', text)} />
-        if (this.state.AnswerMissing)
-        {<FormValidationMessage>Please enter an answer.</FormValidationMessage>}
+        {answerMissing && <FormValidationMessage>Please enter an answer.</FormValidationMessage>}
         <Button title="Submit" onPress={() => this.handleSubmit()} />
       </View>
     )
@@ -67,4 +69,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default connect(() => {}, mapDispatchToProps)(NewCardScreen)
+function mapStateToProps(state, ownProps) {
+  return Utils.getProps(state, ownProps, ['deckIndex'])
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewCardScreen)

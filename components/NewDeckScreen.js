@@ -44,4 +44,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default connect(() => {}, mapDispatchToProps)(NewDeckScreen)
+function mapStateToProps(state, ownProps) {
+  return {} 
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewDeckScreen)

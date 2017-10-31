@@ -14,7 +14,7 @@ export function addNewDeck(deck) {
     let decks = fetchDecks().push(deck)
     return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({  decks  }))
 }
-
+//LEFT OFF HERE: fix function interface.
 export function addNewCard({ deckPosition, card  }) {
     let decks = fetchDecks()
     decks[deckPosition].questions.push(card)

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import { Card, Button } from 'react-native-elements'
+import * as Utils from '../utils/utils'
 
 class DeckScreen extends Component {
   onPressStartQuiz() {
@@ -9,8 +10,10 @@ class DeckScreen extends Component {
   }
 
   onPressAddNewCard() {
-    //LEFT OFF HERE: add navigation code to go to NewCardScreen
-    Alert.alert("You're adding a card.")
+    let { navigation, deckIndex } = this.props
+    navigation.navigate('NewCardScreen', { deckIndex })
+    
+
   }
 
   render() {
@@ -23,7 +26,7 @@ class DeckScreen extends Component {
           <Text>{numCardsMsg}</Text>
 
           <Button title="Start Quiz" onPress={() => this.onPressStartQuiz()} />
-          <Button title="Add New Card" onPress={this.onPressAddNewCard} />
+          <Button title="Add New Card" onPress={() => this.onPressAddNewCard()} />
         </View>
       </Card>
     )
@@ -40,15 +43,15 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state, ownProps) {
-  let { deck } = ownProps
-
-  if (deck === undefined && ownProps.navigation !== undefined) {
-    deck = ownProps.navigation.state.params.deck
+  
+  const { navigation } = ownProps
+  const props = Utils.getProps(state, ownProps, ['deck', 'deckIndex'])
+  const out = {
+    navigation,
+    ...props
   }
-
-  return {
-    deck
-  }
+  return out
+  
 }
 
 export default connect(mapStateToProps)(DeckScreen)
