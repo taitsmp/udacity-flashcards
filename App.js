@@ -40,6 +40,7 @@ const Tabs = TabNavigator({
   NewDeckView: {
     screen: NewDeckScreen,
     navigationOptions: {
+      title: 'New Deck',
       tabBarLabel: '',
       tabBarIcon: ({ tintColor }) => <FontAwesome name="plus" size={30} color={tintColor} />
     }

@@ -29,16 +29,19 @@ class NewCardScreen extends Component {
         answer
       }
 
-      console.log("about to add a new card")
+      console.log('about to add a new card')
       this.props.addNewCard(deckIndex, card)
 
-      //TODO: change the state here to show the user the card was created?
-    } else {
       this.setState({
-        answerMissing,
-        questionMissing
+        question: undefined,
+        answer: undefined
       })
     }
+
+    this.setState({
+      answerMissing,
+      questionMissing
+    })
   }
 
   handleTextChange(type, input) {
@@ -48,14 +51,20 @@ class NewCardScreen extends Component {
   }
 
   render() {
-    const { questionMissing, answerMissing  } = this.state
+    const { questionMissing, answerMissing } = this.state
     return (
       <View>
         <FormLabel>Question</FormLabel>
-        <FormInput onChangeText={text => this.handleTextChange('question', text)} />
+        <FormInput
+          onChangeText={text => this.handleTextChange('question', text)}
+          value={this.state.question}
+        />
         {questionMissing && <FormValidationMessage>Please enter a question.</FormValidationMessage>}
         <FormLabel>Answer</FormLabel>
-        <FormInput onChangeText={text => this.handleTextChange('answer', text)} />
+        <FormInput
+          onChangeText={text => this.handleTextChange('answer', text)}
+          value={this.state.answer}
+        />
         {answerMissing && <FormValidationMessage>Please enter an answer.</FormValidationMessage>}
         <Button title="Submit" onPress={() => this.handleSubmit()} />
       </View>

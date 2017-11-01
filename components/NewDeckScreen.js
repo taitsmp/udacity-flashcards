@@ -8,8 +8,11 @@ import { Button } from 'react-native-elements'
 //should I navigate them to the new deck? 
 
 class NewDeckScreen extends Component {
+  state = {
+    input:undefined
+  }
   handleSubmit() {
-    if (this.state.input == null) {
+    if (this.state.input == undefined) {
       Alert.alert('Please enter a title for your deck.')
     }
 
@@ -19,6 +22,10 @@ class NewDeckScreen extends Component {
     }
 
     this.props.addNewDeck(deck)
+
+    this.setState({
+      input:undefined
+    })
   }
 
   handleTextChange(input) {
@@ -31,7 +38,10 @@ class NewDeckScreen extends Component {
     return (
       <View>
         <Text>What is the Title of your new Deck?</Text>
-        <TextInput onChangeText={text => this.handleTextChange(text)} />
+        <TextInput 
+        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+        onChangeText={text => this.handleTextChange(text)}
+        value={this.state.input} />
         <Button title="Submit" onPress={() => this.handleSubmit()} />
       </View>
     )
