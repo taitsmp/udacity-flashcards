@@ -6,13 +6,14 @@ import * as Utils from '../utils/utils'
 
 class DeckScreen extends Component {
   onPressStartQuiz() {
-    Alert.alert("You're starting a quiz.")
+    
+    let { navigation, deckIndex } = this.props
+    navigation.navigate('QuizScreen', { deckIndex })
   }
 
   onPressAddNewCard() {
     let { navigation, deckIndex } = this.props
     navigation.navigate('NewCardScreen', { deckIndex })
-    
 
   }
 

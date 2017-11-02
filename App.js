@@ -6,8 +6,7 @@ import configureStore from './store/configureStore'
 import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import DeckListView from './components/DeckListView'
 import NewDeckScreen from './components/NewDeckScreen'
-import QuizView from './components/QuizView'
-import CardScreen from './components/CardScreen'
+import QuizScreen from './components/QuizScreen'
 import NewCardScreen from './components/NewCardScreen'
 import DeckScreen from './components/DeckScreen'
 import FlashStatusBar from './components/FlashStatusBar'
@@ -50,8 +49,8 @@ const MainNavigator = StackNavigator({
   Home: {
     screen: Tabs
   },
-  QuizView: {
-    screen: QuizView,
+  QuizScreen: {
+    screen: QuizScreen,
     navigationOptions: {
       /*
       headerTintColor: white,
@@ -71,21 +70,10 @@ const MainNavigator = StackNavigator({
       },*/
     })
   },
-  NewCardScreen: { 
-      screen: NewCardScreen,
-      navigationOptions: {
-          title: "New Card"
-      }
-
-  },
-  CardScreen: {
-    screen: CardScreen,
+  NewCardScreen: {
+    screen: NewCardScreen,
     navigationOptions: {
-      /*
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: purple,
-      },*/
+      title: 'New Card'
     }
   }
 })

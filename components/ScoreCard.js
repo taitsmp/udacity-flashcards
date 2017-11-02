@@ -3,16 +3,18 @@ import { View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchDecks } from '../utils/api'
 
-class QuizView extends Component {
+class ScoreCardScreen extends Component {
 
     render() {
         return (
             <View>
-              <Text>Quiz View</Text>
+              <Text>You scored 3/10</Text>
+              <Text>Retake Quiz</Text>
+              <Text>Go to the front of the Deck</Text>
             </View>
         )
     }
 
 }
 
-export default connect()(QuizView)
+export default connect()(ScoreCardScreen)

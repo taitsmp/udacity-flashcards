@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, FlatList, AsyncStorage, Alert } from 'react-nat
 import { connect } from 'react-redux'
 import { fetchDecks } from '../actions/decks'
 import DeckCover from './DeckCover'
-import CardScreen from './CardScreen'
 
 class DeckListView extends Component {
   componentDidMount() {
