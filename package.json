@@ -20,6 +20,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "babel-preset-env": "^1.6.1",
     "eslint": "^4.9.0",
     "eslint-config-universe": "^1.0.6",
     "expo": "^21.0.0",
