@@ -1,6 +1,8 @@
 {
-  "presets": [ 
-    //"babel-preset-es2015", //should be "@babel/env" but that breaks the build. 
+  "presets": [
+		"env",
+    //"babel-preset-es2015",
+    //"@babel/env", both of these break the build.
     "babel-preset-expo"
   ],
   "env": {
