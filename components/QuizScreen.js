@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchDecks } from '../utils/api'
 import * as Utils from '../utils/utils'
+import PropTypes from 'prop-types'
 import CardView from './CardView'
 import ScoreCard from './ScoreCard'
 
@@ -33,10 +34,10 @@ class QuizScreen extends Component {
   }
 
   render() {
-    const { cardIndex } = this.state
-    const { deck } = this.props
+    const { cardIndex, correct } = this.state
+    const { deck, deckIndex, navigation } = this.props
     return deck.questions.length <= cardIndex ? (
-      <ScoreCard />
+      <ScoreCard deck={deck} correct={correct} deckIndex={deckIndex} navigation={navigation} />
     ) : (
       <CardView deck={deck} cardIndex={cardIndex} handleGrade={this.handleGrade} />
     )
@@ -46,15 +47,23 @@ class QuizScreen extends Component {
 function mapStateToProps(state, ownProps) {
   const { navigation } = ownProps
   const props = Utils.getProps(state, ownProps, ['deckIndex'])
+  const { deckIndex } = props
   console.log(state)
   console.log(props)
   //consle.log()
   const out = {
     navigation,
     ...props,
-    deck: state[props.deckIndex]
+    deck: state[deckIndex]
   }
   return out
 }
+
+QuizScreen.propTypes = {
+    navigation: PropTypes.object.isRequired,
+    deck: PropTypes.object.isRequired,
+    deckIndex: PropTypes.number.isRequired
+  }
+
 
 export default connect(mapStateToProps)(QuizScreen)
