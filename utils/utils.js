@@ -29,12 +29,13 @@ export function getProps(state, ownProps, names) {
   }, {})
 }
 
+/*
 export async function getiOSNotificationPermission() {
   const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
   if (status !== 'granted') {
     await Permissions.askAsync(Permissions.NOTIFICATIONS)
   }
-}
+}*/
 
 /*
   left off here:
