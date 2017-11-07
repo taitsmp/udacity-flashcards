@@ -26,3 +26,31 @@ export function getProps(state, ownProps, names) {
     }
   }, {})
 }
+
+/*
+export async function getiOSNotificationPermission() {
+  const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
+  if (status !== 'granted') {
+    await Permissions.askAsync(Permissions.NOTIFICATIONS)
+  }
+}*/
+
+/*
+  left off here:
+  * call this in componentDidMount on App.js
+  * see also AddEntry.js
+  * get permission first
+  * follow example in udacifitness helper.js (but use async)
+  * more code here: https://docs.expo.io/versions/latest/sdk/notifications.html
+  * learn a bit more about how async and await work.  Can review promises at the same time. 
+
+*/
+export function setLocalNotification () {
+  // if notification already set, do nothing. (this is what udacifitness does)
+
+  // use function above, getiOSNotificationPermission, to ask for permissions?  Could also just ask before calling this.
+  
+  // write another function to clear notifications. 
+
+  //
+}
