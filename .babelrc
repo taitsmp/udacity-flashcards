@@ -1,13 +1,5 @@
 {
-<<<<<<< Updated upstream
   "presets": ["babel-preset-expo"],
-=======
-  "presets": [
-    //"babel-preset-es2015",
-    //"@babel/env", both of these break the build.
-    "babel-preset-expo"
-  ],
->>>>>>> Stashed changes
   "env": {
     "development": {
       "plugins": ["transform-react-jsx-source"]
