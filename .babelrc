@@ -1,5 +1,10 @@
 {
-  "presets": [ "babel-preset-expo"],
+  "presets": [
+		"env",
+    //"babel-preset-es2015",
+    //"@babel/env", both of these break the build.
+    "babel-preset-expo"
+  ],
   "env": {
     "development": {
       "plugins": ["transform-react-jsx-source"]
