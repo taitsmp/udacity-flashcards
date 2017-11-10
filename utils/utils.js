@@ -33,7 +33,7 @@ export function getProps(state, ownProps, names) {
   }, {})
 }
 
-//could be ...askedForNotifications()
+//could be ...checkAskedForNotifications() or askedFor...
 // * then() always returns another Promise
 // * however, if you return a new Promise from a "then" function the following things happen
 //   + the new Promise executes asynchronously (this is always the case)
