@@ -34,6 +34,11 @@ export function getProps(state, ownProps, names) {
 }
 
 //could be ...askedForNotifications()
+// * then() always returns another Promise
+// * however, if you return a new Promise from a "then" function the following things happen
+//   + the new Promise executes asynchronously (this is always the case)
+//   + the promise chain waits (i.e. is suspended) until the new Promise executes.
+// https://javascript.info/promise-chaining#returning-promises
 export function notifcationsExist() {
   return AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
