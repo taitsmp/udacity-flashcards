@@ -10,8 +10,25 @@ import QuizScreen from './components/QuizScreen'
 import NewCardScreen from './components/NewCardScreen'
 import DeckScreen from './components/DeckScreen'
 import FlashStatusBar from './components/FlashStatusBar'
+import { testFun, createDailyReminderNotifications } from './utils/utils'
+
+/*
+TODO: 
+
+* animation when going to a deck from the deck list view
+* on individual cards show how many questions are remaining
+* clean up styling
+* routing to 'go back and start a quiz' the back button should work correctly if you take the quiz over and over. 
+* work on README
+* ensure a simple install and use of yarn works. 
+* Test in android
+*/
 
 export default class App extends React.Component {
+  async componentDidMount() {
+    createDailyReminderNotifications()
+  }
+
   render() {
     const store = configureStore()
     return (
