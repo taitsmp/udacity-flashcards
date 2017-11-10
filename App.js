@@ -10,7 +10,7 @@ import QuizScreen from './components/QuizScreen'
 import NewCardScreen from './components/NewCardScreen'
 import DeckScreen from './components/DeckScreen'
 import FlashStatusBar from './components/FlashStatusBar'
-import { testFun, createDailyReminderNotifications } from './utils/utils'
+import { createDailyReminderNotifications } from './utils/utils'
 
 /*
 TODO: 
@@ -25,7 +25,7 @@ TODO:
 */
 
 export default class App extends React.Component {
-  async componentDidMount() {
+  componentDidMount() {
     createDailyReminderNotifications()
   }
 
