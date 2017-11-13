@@ -15,6 +15,13 @@ import { testFun, createDailyReminderNotifications } from './utils/utils'
 /*
 TODO: 
 
+* layout card better.  
+  + stop using 'Card' for now. 
+  + consider breaking it down into two different components (answer + question)
+  + "answer" and "question" both should have three sections.  try flex:4 for the center section. Answer's botton section is empty.
+  + read up on jsx conditional flow - https://reactjs.org/docs/conditional-rendering.html
+  + you could mess with styling in a new project.
+
 * animation when going to a deck from the deck list view
 * on individual cards show how many questions are remaining
 * clean up styling
