@@ -23,15 +23,6 @@ class QuizScreen extends Component {
     })
   }
 
-  renderCard() {
-    const { deck, cardIndex } = this.props
-    if (deck.questions.length >= cardIndex) this.renderScore()
-    else this.renderCard()
-  }
-
-  renderScore() {
-    return <ScoreCard />
-  }
 
   render() {
     const { cardIndex, correct } = this.state
