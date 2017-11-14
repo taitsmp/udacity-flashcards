@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Animated, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchDecks } from '../utils/api'
 import * as Utils from '../utils/utils'
@@ -23,15 +23,36 @@ class QuizScreen extends Component {
     })
   }
 
+  renderNoMoreCards() {
+    const { correct } = this.state
+    const { deck, deckIndex, navigation } = this.props
+    return <ScoreCard deck={deck} correct={correct} deckIndex={deckIndex} navigation={navigation} />
+  }
 
+  //LEFT OFF HERE.  Rendering all cards that have not been looked at.  Need to hook up PanResponsder.
   render() {
     const { cardIndex, correct } = this.state
     const { deck, deckIndex, navigation } = this.props
-    return deck.questions.length <= cardIndex ? (
-      <ScoreCard deck={deck} correct={correct} deckIndex={deckIndex} navigation={navigation} />
-    ) : (
-      <CardView deck={deck} cardIndex={cardIndex} handleGrade={this.handleGrade} />
-    )
+
+    if (cardIndex >= deck.length) return this.renderNoMoreCards()
+
+    return deck.map((c, i) => {
+      if (i < cardIndex) return null
+
+      if (i === cardIndex) {
+        return (
+          <Animated.View style={[styles.cardContainer, { zIndex: 99 }]}>
+            <CardView deck={deck} cardIndex={cardIndex} handleGrade={this.handleGrade} />
+          </Animated.View>
+        )
+      } else {
+        return (
+          <View style={[styles.cardContainer, { zIndex: 5 }]}>
+            <CardView deck={deck} cardIndex={cardIndex} handleGrade={this.handleGrade} />
+          </View>
+        )
+      }
+    })
   }
 }
 
@@ -50,11 +71,16 @@ function mapStateToProps(state, ownProps) {
   return out
 }
 
-QuizScreen.propTypes = {
-    navigation: PropTypes.object.isRequired,
-    deck: PropTypes.object.isRequired,
-    deckIndex: PropTypes.number.isRequired
+const styles = StyleSheet.create({
+  cardContainer: {
+    flex: 1
   }
+})
 
+QuizScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  deck: PropTypes.object.isRequired,
+  deckIndex: PropTypes.number.isRequired
+}
 
 export default connect(mapStateToProps)(QuizScreen)
