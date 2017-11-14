@@ -26,10 +26,18 @@ TODO:
 * on individual cards show how many questions are remaining
 * clean up styling
 * routing to 'go back and start a quiz' the back button should work correctly if you take the quiz over and over.
-* - the goback() functionality  in screen navigation prop of react-navigation likely fixes this.  
+* - the goback() functionality  in screen navigation prop of react-navigation likely fixes this. 
+*    + didn't work as expected. can't pass it params
+*    + I got one of these routes working better by just reseting the state.  The other one is still busted.  
 * work on README
 * ensure a simple install and use of yarn works. 
 * Test in android
+
+STRETCH GOALS
+--------------
+* pan responder
+* look like amazon kindle flash cards
+* use async / await not promises. 
 */
 
 export default class App extends React.Component {

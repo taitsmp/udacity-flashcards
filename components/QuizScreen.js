@@ -23,12 +23,15 @@ class QuizScreen extends Component {
     })
   }
 
+  resetQuiz = () => {
+    this.setState({ cardIndex:0, correct:0})
+  }
 
   render() {
     const { cardIndex, correct } = this.state
     const { deck, deckIndex, navigation } = this.props
     return deck.questions.length <= cardIndex ? (
-      <ScoreCard deck={deck} correct={correct} deckIndex={deckIndex} navigation={navigation} />
+      <ScoreCard deck={deck} correct={correct} deckIndex={deckIndex} navigation={navigation} resetQuiz={this.resetQuiz} />
     ) : (
       <CardView deck={deck} cardIndex={cardIndex} handleGrade={this.handleGrade} />
     )
