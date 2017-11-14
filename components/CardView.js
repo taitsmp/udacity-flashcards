@@ -21,7 +21,7 @@ class CardView extends Component {
     const { deck, cardIndex, handleGrade } = this.props
     console.log(deck)
     const { question, answer } = deck.questions[cardIndex]
-    const deckLen = deck.questions.length
+    const progress = `${cardIndex + 1} / ${deck.questions.length}`
     const { showAnswer } = this.state
     return (
       <Card title={deck.title} wrapperStyle={styles.container}>
