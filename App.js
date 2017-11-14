@@ -18,7 +18,8 @@ TODO:
 * animation when going to a deck from the deck list view
 * on individual cards show how many questions are remaining
 * clean up styling
-* routing to 'go back and start a quiz' the back button should work correctly if you take the quiz over and over. 
+* routing to 'go back and start a quiz' the back button should work correctly if you take the quiz over and over.
+* - the goback() functionality  in screen navigation prop of react-navigation likely fixes this.  
 * work on README
 * ensure a simple install and use of yarn works. 
 * Test in android
