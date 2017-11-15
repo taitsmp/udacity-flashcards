@@ -5,7 +5,7 @@ A simple native flashcards app that supports creating multiple flashcard decks.
 # Installation
 
 ```
-git clone
+git clone git@github.com:taitsmp/udacity-flashcards.git
 cd flashcards
 yarn install
 ```

@@ -25,6 +25,8 @@ class CardView extends Component {
     const { showAnswer } = this.state
     return (
       <Card title={deck.title} wrapperStyle={styles.container}>
+      <View>
+        <View><Text>{progress}</Text></View>
         {showAnswer ? (
           <View>
             <Text>{answer}</Text>
@@ -47,6 +49,7 @@ class CardView extends Component {
             <Button title="Incorrect" onPress={() => handleGrade(false)} />
           </View>
         )}
+        </View>
       </Card>
     )
   }

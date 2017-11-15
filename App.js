@@ -22,22 +22,31 @@ TODO:
   + read up on jsx conditional flow - https://reactjs.org/docs/conditional-rendering.html
   + you could mess with styling in a new project.
 
-* animation when going to a deck from the deck list view
-* on individual cards show how many questions are remaining
 * clean up styling
 * routing to 'go back and start a quiz' the back button should work correctly if you take the quiz over and over.
 * - the goback() functionality  in screen navigation prop of react-navigation likely fixes this. 
 *    + didn't work as expected. can't pass it params
 *    + I got one of these routes working better by just reseting the state.  The other one is still busted.  
-* work on README
 * ensure a simple install and use of yarn works. 
-* Test in android
+* Test in android - genymotion sucks.  Try android studio - https://facebook.github.io/react-native/docs/getting-started.html
+* remove console.log statements
+* test your notifications
+
 
 STRETCH GOALS
 --------------
 * pan responder
 * look like amazon kindle flash cards
 * use async / await not promises. 
+
+Done
+----
+* work on README
+* animation when going to a deck from the deck list view - react-navigation meets this requirement. 
+* on individual cards show how many questions are remaining
+
+
+
 */
 
 export default class App extends React.Component {
