@@ -18,7 +18,7 @@ class CardView extends Component {
 
  
   render() {
-    const { deck, cardIndex, handleGrade } = this.props
+    const { deck, cardIndex, forceSwipe } = this.props
     console.log(deck)
     const { question, answer } = deck.questions[cardIndex]
     const progress = `${cardIndex + 1} / ${deck.questions.length}`
@@ -43,8 +43,8 @@ class CardView extends Component {
               </TouchableHighlight>
             </View>
 
-            <Button title="Correct" onPress={() => handleGrade(true)} />
-            <Button title="Incorrect" onPress={() => handleGrade(false)} />
+            <Button title="Correct" onPress={() => forceSwipe('right')} />
+            <Button title="Incorrect" onPress={() => forceSwipe('left')} />
           </View>
         )}
       </Card>

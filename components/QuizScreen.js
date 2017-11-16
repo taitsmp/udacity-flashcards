@@ -9,60 +9,71 @@ import ScoreCard from './ScoreCard'
 
 const SCREEN_WIDTH = Dimensions.get('window').width
 const SWIPE_DURATION = 250
-const SWIPE_THRESHOLD = SCREEN_WIDTH * .25
+const SWIPE_THRESHOLD = SCREEN_WIDTH * 0.25
 
 class QuizScreen extends Component {
   state = {
     cardIndex: 0,
     correct: 0
   }
-  forceSwipe(direction) {
+
+  forceSwipe = (direction) => {
     const x_dist = direction == 'right' ? SCREEN_WIDTH : -SCREEN_WIDTH
     Animated.timing(this._position, {
       duration: SWIPE_DURATION,
-      toValue: {x: x_dist, y: 0}
+      toValue: {  x: x_dist, y: 0  }
     }).start(() => this.onSwipeComplete(direction))
+  }
 
+  resetPosition() {
+    Animated.spring(this._position, {
+      toValue: {  x: 0, y: 0  }
+    }).start()
   }
 
   onSwipeComplete(direction) {
-    //call handleGrade
-    //handleGrade will update the state correctly. 
-    //maybe don't need this function?
-    this._postition.setValue({x:0, y:0}) //do this in handleGrade?
+    this._position.setValue({ x: 0, y: 0 })
+    this.handleGrade(direction === 'right')
   }
 
   //style is used to tell the Animated View where it moves to.
-  //LEFT OFF HERE: set the rotation and grab elements from position.getLayout.  
   getCardStyle() {
+    const position = this._position
+    const rotate = position.x.interpolate({
+      inputRange: [-SCREEN_WIDTH * 1.5, 0, SCREEN_WIDTH * 1.5],
+      outputRange: ['-120deg', '0deg', '120deg']
+    })
     return {
-      //this._position.getLayout()
-      
+      ...position.getLayout(),
+      transform: [{ rotate }]
     }
   }
 
   componentWillMount() {
-    let position = Animated.ValueXY() // starts at 0,0?
+    let position = new Animated.ValueXY() // starts at 0,0?  Relative to it's containing view I would assume.
     let panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
-      onPanResponderGrant: (evt, gestureState) => {  
+      onPanResponderGrant: (evt, gestureState) => {
         // The gesture has started. Show visual feedback so the user knows
         // what is happening!
         // gestureState.d{x,y} will be set to zero now
-       },
+      },
       onPanResponderMove: (event, gesture) => {
-        position.setValue({x: gesture.dx, y: gesture.dy })
+        position.setValue({  x: gesture.dx, y: gesture.dy })
       },
       onPanResponderRelease: (event, gesture) => {
-        //detect change then forceSwipe() 
+        if (gesture.dx > SWIPE_THRESHOLD) {
+          this.forceSwipe('right')
+        } else if (gesture.dx < -SWIPE_THRESHOLD) {
+          this.forceSwipe('left')
+        } else {
+          this.resetPosition()
+        }
       }
-
-  
     })
-    this._position = position  //the position of the movable card.  Gets applied to different cards (depends which is on top)
+    this._position = position //the position of the movable card.  Gets applied to different cards (depends which is on top)
     this._panResponder = panResponder
-    
-  }  
+  }
   handleGrade = answeredCorrectly => {
     let { correct, cardIndex } = this.state
     cardIndex++
@@ -80,27 +91,32 @@ class QuizScreen extends Component {
   }
 
   render() {
+    return <View>{this.renderCards()}</View>
+  }
+  renderCards() {
     const { cardIndex, correct } = this.state
-    const { deck, deckIndex, navigation } = this.props
+    let { deck, deckIndex, navigation } = this.props
 
-    if (cardIndex >= deck.length) return this.renderNoMoreCards()
+    if (cardIndex >= deck.questions.length) return this.renderNoMoreCards()
 
-    return deck.map((c, i) => {
+    console.log(deck)
+    return deck.questions.map((c, i) => {
       if (i < cardIndex) return null
 
       if (i === cardIndex) {
         return (
-          <Animated.View
-            style={[this.getCardStyle(), styles.cardContainer, { zIndex: 99 }]}
+          <Animated.View 
+            key={i}
+            style={[this.getCardStyle(), styles.card, { zIndex: 99 }]}
             {...this._panResponder.panHandlers}
           >
-            <CardView deck={deck} cardIndex={cardIndex} handleGrade={this.handleGrade} />
+            <CardView deck={deck} cardIndex={cardIndex} forceSwipe={this.forceSwipe} />
           </Animated.View>
         )
       } else {
         return (
-          <View style={[styles.cardContainer, { zIndex: 5 }]}>
-            <CardView deck={deck} cardIndex={cardIndex} handleGrade={this.handleGrade} />
+          <View key={i} style={[styles.card, { zIndex: 5 }]}>
+            <CardView deck={deck} cardIndex={cardIndex} forceSwipe={this.forceSwipe} />
           </View>
         )
       }
@@ -124,8 +140,10 @@ function mapStateToProps(state, ownProps) {
 }
 
 const styles = StyleSheet.create({
-  cardContainer: {
-    flex: 1
+  card: {
+    position: 'absolute', //position always relative to parent
+    flex: 1, //might need to change this.
+    width: SCREEN_WIDTH
   }
 })
 
