@@ -19,11 +19,12 @@ class ScoreCardScreen extends Component {
     const numQuestions = deck.questions.length
     const scoreMsg = `You got ${correct} of ${numQuestions} questions correct.`
 
-    //TODO: either remove me or figure out how to use this to prevent adding something new to the top of the nav stack. 
-    const spAction = NavigationActions.setParams({
-      key: 'QuizScreen',
-      params: {deckIndex }
-    })
+    //          onPress={() => navigation.navigate('QuizScreen', { deck, deckIndex })}
+
+    //getStateForAction might be the right thing to do - https://github.com/react-community/react-navigation/issues/288pAction = NavigationActions.setParams({
+    //reset would also be a simple solution.  You just rebuild the entire navigation stack.  Should just be two things.
+    //https://github.com/react-community/react-navigation/issues/288
+    //goback(null) seems to work..
     return (
       <View>
         <Text>{scoreMsg}</Text>
@@ -33,7 +34,8 @@ class ScoreCardScreen extends Component {
         />
         <Button
           title="Go to the front of the Deck"
-          onPress={() => navigation.navigate('QuizScreen', { deck, deckIndex })}
+          onPress={() => navigation.goBack(null)}
+          
         />
       </View>
     )
