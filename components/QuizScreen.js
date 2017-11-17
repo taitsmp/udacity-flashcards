@@ -6,28 +6,35 @@ import * as Utils from '../utils/utils'
 import PropTypes from 'prop-types'
 import CardView from './CardView'
 import ScoreCard from './ScoreCard'
+import CardControls from './CardControls'
+import { Constants } from 'expo'
+
 
 const SCREEN_WIDTH = Dimensions.get('window').width
+const SCREEN_HEIGHT = Dimensions.get('window').height
+const CONTROLS_HEIGHT = 70
+
 const SWIPE_DURATION = 250
 const SWIPE_THRESHOLD = SCREEN_WIDTH * 0.25
 
 class QuizScreen extends Component {
   state = {
     cardIndex: 0,
-    correct: 0
+    correct: 0,
+    cardHeight: 0,
   }
 
-  forceSwipe = (direction) => {
+  forceSwipe = direction => {
     const x_dist = direction == 'right' ? SCREEN_WIDTH : -SCREEN_WIDTH
     Animated.timing(this._position, {
       duration: SWIPE_DURATION,
-      toValue: {  x: x_dist, y: 0  }
+      toValue: { x: x_dist, y: 0 }
     }).start(() => this.onSwipeComplete(direction))
   }
 
   resetPosition() {
     Animated.spring(this._position, {
-      toValue: {  x: 0, y: 0  }
+      toValue: { x: 0, y: 0 }
     }).start()
   }
 
@@ -59,7 +66,7 @@ class QuizScreen extends Component {
         // gestureState.d{x,y} will be set to zero now
       },
       onPanResponderMove: (event, gesture) => {
-        position.setValue({  x: gesture.dx, y: gesture.dy })
+        position.setValue({ x: gesture.dx, y: gesture.dy })
       },
       onPanResponderRelease: (event, gesture) => {
         if (gesture.dx > SWIPE_THRESHOLD) {
@@ -90,9 +97,6 @@ class QuizScreen extends Component {
     return <ScoreCard deck={deck} correct={correct} deckIndex={deckIndex} navigation={navigation} />
   }
 
-  render() {
-    return <View>{this.renderCards()}</View>
-  }
   renderCards() {
     const { cardIndex, correct } = this.state
     let { deck, deckIndex, navigation } = this.props
@@ -105,9 +109,9 @@ class QuizScreen extends Component {
 
       if (i === cardIndex) {
         return (
-          <Animated.View 
+          <Animated.View
             key={i}
-            style={[this.getCardStyle(), styles.card, { zIndex: 99 }]}
+            style={[this.getCardStyle(), styles.card, { zIndex: 99, height: this.state.cardHeight }]}
             {...this._panResponder.panHandlers}
           >
             <CardView deck={deck} cardIndex={cardIndex} forceSwipe={this.forceSwipe} />
@@ -115,12 +119,29 @@ class QuizScreen extends Component {
         )
       } else {
         return (
-          <View key={i} style={[styles.card, { zIndex: 5 }]}>
+          <View key={i} style={[styles.card, { zIndex: 5, height: this.state.cardHeight }]}>
             <CardView deck={deck} cardIndex={cardIndex} forceSwipe={this.forceSwipe} />
           </View>
         )
       }
     })
+  }
+
+  handleUpdateHeight(event) {
+      console.log(event.nativeEvent.layout.height)
+      return this.setState({ cardHeight: event.nativeEvent.layout.height })
+  }
+
+  render() {
+    return (
+      <View style={{flex:1}}>
+        <View onLayout={ event => this.handleUpdateHeight(event) } 
+        style={styles.cardsContainer}>{this.renderCards()}</View>
+        <View style={styles.controlsContainer}>
+          <CardControls forceSwipe={this.forceSwipe} />
+        </View>
+      </View>
+    )
   }
 }
 
@@ -143,7 +164,18 @@ const styles = StyleSheet.create({
   card: {
     position: 'absolute', //position always relative to parent
     flex: 1, //might need to change this.
-    width: SCREEN_WIDTH
+
+    width: SCREEN_WIDTH,
+    borderColor: 'black',
+    borderWidth: 2
+  },
+  cardsContainer: {
+    flex:1,
+    borderColor: 'blue',
+    borderWidth: 2
+  },
+  controlsContainer: {
+    height: CONTROLS_HEIGHT
   }
 })
 

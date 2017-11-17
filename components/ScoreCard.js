@@ -18,7 +18,7 @@ class ScoreCardScreen extends Component {
     const scoreMsg = `You got ${correct} of ${numQuestions} questions correct.`
 
     return (
-      <View>
+      <View style={{flex:1}}>
         <Text>{scoreMsg}</Text>
         <Button
           title="Retake Quiz"

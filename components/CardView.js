@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Card, Button } from 'react-native-elements'
 
 class CardView extends Component {
@@ -16,47 +16,76 @@ class CardView extends Component {
     })
   }
 
- 
+  renderQA(text, flipText) {
+    return (
+      <View style={{flex:1}}>
+        <View style={styles.msgContainer} >
+        <Text style={styles.msgText}>{text}</Text>
+        </View>
+        <View style={styles.flipContainer}>
+          <TouchableOpacity onPress={() => this.flipCard()}>
+            <Text style={styles.flipText}>{flipText}</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    )
+  }
+
+  renderProgress(ind, total) {
+    const progressText = `${ind} of ${total}`
+    return (
+      <View>
+        <Text>{progressText}</Text>
+      </View>
+    )
+  }
   render() {
     const { deck, cardIndex, forceSwipe } = this.props
     console.log(deck)
     const { question, answer } = deck.questions[cardIndex]
-    const progress = `${cardIndex + 1} / ${deck.questions.length}`
     const { showAnswer } = this.state
     return (
-      <Card title={deck.title} wrapperStyle={styles.container}>
-        {showAnswer ? (
-          <View>
-            <Text>{answer}</Text>
-            <View>
-              <TouchableHighlight onPress={() => this.flipCard()}>
-                <Text>Question</Text>
-              </TouchableHighlight>
-            </View>
-          </View>
-        ) : (
-          <View>
-            <Text>{question}</Text>
-            <View>
-              <TouchableHighlight onPress={() => this.flipCard()}>
-                <Text>Answer</Text>
-              </TouchableHighlight>
-            </View>
-
-            <Button title="Correct" onPress={() => forceSwipe('right')} />
-            <Button title="Incorrect" onPress={() => forceSwipe('left')} />
-          </View>
-        )}
-      </Card>
+      <View style={styles.container}>
+        <View style={styles.progressBar}>
+          {this.renderProgress(cardIndex + 1, deck.questions.length)}
+        </View>
+        
+          {showAnswer ? this.renderQA(answer, 'Question') : this.renderQA(question, 'Answer')}
+        
+      </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    //flex: 1,
-    alignItems: 'center',
-    marginBottom: 20
+    flex: 1,
+    //margin: 50,
+    borderRadius: 2,
+    backgroundColor: 'white',
+    borderColor: 'black'
+  },
+  progressBar: {
+    height: 15,
+    flexDirection: 'row',
+    flex: 1
+  }, 
+  msgContainer: {
+    flex:2,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  msgText: {
+    fontSize: 30,
+  },
+  flipContainer: {
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  flipText: {
+    fontSize: 25,
+    color: 'blue'
   }
 })
 
