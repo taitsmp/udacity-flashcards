@@ -81,6 +81,11 @@ class QuizScreen extends Component {
     this._position = position //the position of the movable card.  Gets applied to different cards (depends which is on top)
     this._panResponder = panResponder
   }
+
+  resetQuiz = () => {
+    this.setState({ cardIndex:0, correct:0})
+  }
+
   handleGrade = answeredCorrectly => {
     let { correct, cardIndex } = this.state
     cardIndex++
@@ -94,7 +99,7 @@ class QuizScreen extends Component {
   renderNoMoreCards() {
     const { correct } = this.state
     const { deck, deckIndex, navigation } = this.props
-    return <ScoreCard deck={deck} correct={correct} deckIndex={deckIndex} navigation={navigation} />
+    return <ScoreCard deck={deck} correct={correct} deckIndex={deckIndex} navigation={navigation} resetQuiz={this.resetQuiz} />
   }
 
   renderCards() {

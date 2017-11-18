@@ -22,13 +22,35 @@ TODO:
   + read up on jsx conditional flow - https://reactjs.org/docs/conditional-rendering.html
   + you could mess with styling in a new project.
 
-* animation when going to a deck from the deck list view
-* on individual cards show how many questions are remaining
-* clean up styling
-* routing to 'go back and start a quiz' the back button should work correctly if you take the quiz over and over. 
-* work on README
+* new deck screen, the keyboard is covering the button to be done. sort of true on card screen.
+* button controls need to go away on ScoreCard view.
+* Why is ScoreCard not flexing it's height?  No position absolute anywhere. 
+* dragging card off screen, end of animatation is a little wonky.  Try not calling setState on height.
+  * clean up styling
+* routing to 'go back and start a quiz' the back button should work correctly if you take the quiz over and over.
+* - the goback() functionality  in screen navigation prop of react-navigation likely fixes this. 
+*    + didn't work as expected. can't pass it params
+*    + I got one of these routes working better by just reseting the state.  The other one is still busted.  
 * ensure a simple install and use of yarn works. 
-* Test in android
+* Test in android - genymotion sucks.  Try android studio - https://facebook.github.io/react-native/docs/getting-started.html
+* remove console.log statements
+* test your notifications
+
+
+STRETCH GOALS
+--------------
+* pan responder
+* look like amazon kindle flash cards
+* use async / await not promises. 
+
+Done
+----
+* work on README
+* animation when going to a deck from the deck list view - react-navigation meets this requirement. 
+* on individual cards show how many questions are remaining
+
+
+
 */
 
 export default class App extends React.Component {
@@ -71,7 +93,10 @@ const Tabs = TabNavigator({
 })
 const MainNavigator = StackNavigator({
   Home: {
-    screen: Tabs
+    screen: Tabs,
+    navigationOptions: {
+      title: 'All Decks'
+    }
   },
   QuizScreen: {
     screen: QuizScreen,
@@ -86,7 +111,7 @@ const MainNavigator = StackNavigator({
   DeckScreen: {
     screen: DeckScreen,
     navigationOptions: ({ navigation }) => ({
-      title: `${navigation.state.params.deck.title}`
+      //title: `${navigation.state.params.deck.title}`
       /*
       headerTintColor: white,
       headerStyle: {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, Alert } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Alert, Keyboard } from 'react-native'
 import { connect } from 'react-redux'
 import { addNewCard } from '../actions/decks'
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
@@ -32,6 +32,8 @@ class NewCardScreen extends Component {
       console.log('about to add a new card')
       this.props.addNewCard(deckIndex, card)
 
+      Keyboard.dismiss()
+      
       this.setState({
         question: undefined,
         answer: undefined

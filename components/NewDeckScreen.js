@@ -1,31 +1,44 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, Alert } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Alert,
+  KeyboardAvoidingView,
+  Keyboard
+} from 'react-native'
 import { connect } from 'react-redux'
 import { addNewDeck } from '../actions/decks'
-import { Button } from 'react-native-elements'
+import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
+import * as Utils from '../utils/utils'
 
-//TODO: what feedback do I give the user once a deck is created?  
-//should I navigate them to the new deck? 
+//TODO: what feedback do I give the user once a deck is created?
+//should I navigate them to the new deck?
 
 class NewDeckScreen extends Component {
   state = {
-    input:undefined
+    input: undefined,
+    missingInput: undefined
   }
   handleSubmit() {
     if (this.state.input == undefined) {
-      Alert.alert('Please enter a title for your deck.')
+      this.setState({ missingInput: false })
+    } else {
+      let deck = {
+        title: this.state.input,
+        questions: []
+      }
+
+      this.props.addNewDeck(deck)
+
+      Keyboard.dismiss()
+
+      this.setState({
+        input: undefined,
+        missingInput: undefined
+      })
     }
-
-    let deck = {
-      title: this.state.input,
-      questions: []
-    }
-
-    this.props.addNewDeck(deck)
-
-    this.setState({
-      input:undefined
-    })
   }
 
   handleTextChange(input) {
@@ -35,13 +48,29 @@ class NewDeckScreen extends Component {
   }
 
   render() {
+    const { inputMissing } = this.state
+
+    return (
+      <KeyboardAvoidingView behavior="padding">
+        <FormLabel>Question</FormLabel>
+        <FormInput onChangeText={text => this.handleTextChange(text)} value={this.state.input} />
+        {inputMissing !== false && (
+          <FormValidationMessage>Please enter a title.</FormValidationMessage>
+        )}
+        <Button title="Submit" onPress={() => this.handleSubmit()} />
+      </KeyboardAvoidingView>
+    )
+  }
+  renderOld() {
     return (
       <View>
         <Text>What is the Title of your new Deck?</Text>
-        <TextInput 
-        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        onChangeText={text => this.handleTextChange(text)}
-        value={this.state.input} />
+        <TextInput
+          style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+          onChangeText={text => this.handleTextChange(text)}
+          value={this.state.input}
+        />
+
         <Button title="Submit" onPress={() => this.handleSubmit()} />
       </View>
     )
@@ -55,7 +84,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 function mapStateToProps(state, ownProps) {
-  return {} 
+  return {}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewDeckScreen)
