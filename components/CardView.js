@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Card, Button } from 'react-native-elements'
+import colors from '../utils/colors'
 
 class CardView extends Component {
   state = {
@@ -61,9 +62,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     //margin: 50,
-    borderRadius: 2,
+    borderRadius: 1,
     backgroundColor: 'white',
-    borderColor: 'black'
+   
   },
   progressBar: {
     height: 15,

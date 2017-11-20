@@ -11,13 +11,13 @@ class CardControls extends Component {
     return (
       <View style={[styles.container]}>
         <TouchableOpacity
-          style={[styles.button, { backgroundColor: 'red' }]}
+          style={[styles.button, { backgroundColor: 'red', marginRight: 4 }]}
           onPress={() => forceSwipe('left')}
         >
           <Entypo name="cross" size={30} color={white} />
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.button, { backgroundColor: 'green' }]}
+          style={[styles.button, { backgroundColor: 'green', marginLeft: 4 }]}
           onPress={() => forceSwipe('right')}
         >
           <Entypo name="check" size={30} color={white} />
@@ -30,14 +30,18 @@ class CardControls extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginLeft: 15,
+    marginRight: 15,
     flexDirection: 'row',
     alignItems: 'center', //b/c buttons are flexed to take up all the space this is not needed.
-    /*justifyContent: 'space-around',*/ borderColor: 'blue',
-    borderWidth: 4
+    /*justifyContent: 'space-around',*/ 
+    //borderColor: 'blue',
+    //borderWidth: 4
   },
   button: {
     flex: 1,
-    margin: 4,
+    marginTop: 4,
+    marginBottom: 4,
     alignItems: 'center',
     justifyContent: 'center',
     height: 50,

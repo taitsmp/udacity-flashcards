@@ -19,11 +19,11 @@ import * as Utils from '../utils/utils'
 class NewDeckScreen extends Component {
   state = {
     input: undefined,
-    missingInput: undefined
+    missingInput: false
   }
   handleSubmit() {
     if (this.state.input == undefined) {
-      this.setState({ missingInput: false })
+      this.setState({ missingInput: true })
     } else {
       let deck = {
         title: this.state.input,
@@ -36,7 +36,7 @@ class NewDeckScreen extends Component {
 
       this.setState({
         input: undefined,
-        missingInput: undefined
+        missingInput: false
       })
     }
   }
@@ -52,9 +52,9 @@ class NewDeckScreen extends Component {
 
     return (
       <KeyboardAvoidingView behavior="padding">
-        <FormLabel>Question</FormLabel>
+        <FormLabel>Title</FormLabel>
         <FormInput onChangeText={text => this.handleTextChange(text)} value={this.state.input} />
-        {inputMissing !== false && (
+        {inputMissing === true && (
           <FormValidationMessage>Please enter a title.</FormValidationMessage>
         )}
         <Button title="Submit" onPress={() => this.handleSubmit()} />

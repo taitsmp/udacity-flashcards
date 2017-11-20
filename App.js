@@ -22,6 +22,8 @@ TODO:
   + read up on jsx conditional flow - https://reactjs.org/docs/conditional-rendering.html
   + you could mess with styling in a new project.
 
+* it would be nice if when you created a deck you went immediately to the deck. Use back button to go back. 
+  * if we're worried this will create too many layers of "back" we could just do some sort of success message (and button)
 * new deck screen, the keyboard is covering the button to be done. sort of true on card screen.
 * button controls need to go away on ScoreCard view.
 * Why is ScoreCard not flexing it's height?  No position absolute anywhere. 
@@ -76,6 +78,7 @@ const Tabs = TabNavigator({
   DeckListView: {
     screen: DeckListView,
     navigationOptions: {
+      title: 'All Decks ',
       tabBarLabel: 'Decks',
       tabBarIcon: ({ tintColor }) => (
         <MaterialCommunityIcons name="cards-outline" size={30} color={tintColor} />
@@ -86,7 +89,7 @@ const Tabs = TabNavigator({
     screen: NewDeckScreen,
     navigationOptions: {
       title: 'New Deck',
-      tabBarLabel: '',
+      tabBarLabel: 'New Deck',
       tabBarIcon: ({ tintColor }) => <FontAwesome name="plus" size={30} color={tintColor} />
     }
   }
@@ -95,7 +98,6 @@ const MainNavigator = StackNavigator({
   Home: {
     screen: Tabs,
     navigationOptions: {
-      title: 'All Decks'
     }
   },
   QuizScreen: {

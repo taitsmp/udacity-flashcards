@@ -10,11 +10,9 @@ import { clearDailyReminders, createDailyReminderNotifications } from '../utils/
 class ScoreCardScreen extends Component {
   componentDidMount() {
     console.log('inside scorecard')
-    clearDailyReminders()
-      .then(createDailyReminderNotifications)
+    clearDailyReminders().then(createDailyReminderNotifications)
   }
   render() {
-    
     const { resetQuiz, navigation, correct, deck, deckIndex } = this.props
     const numQuestions = deck.questions.length
     const scoreMsg = `You got ${correct} of ${numQuestions} questions correct.`
@@ -26,21 +24,33 @@ class ScoreCardScreen extends Component {
     //https://github.com/react-community/react-navigation/issues/288
     //goback(null) seems to work..
     return (
-      <View style={{flex:1}}>
-        <Text>{scoreMsg}</Text>
-        <Button style={{marginBottom: 5}}
-          title="Retake Quiz"
-          onPress={() => resetQuiz()}
-        />
-        <Button
-          title="Go to the front of the Deck"
-          onPress={() => navigation.goBack(null)}
-          
-        />
+      <View style={{  flex: 1, borderRadius:1, backgroundColor: 'white', borderColor:'red', margin:10,  }}>
+        <View style={styles.msgContainer}>
+        <Text style={styles.messageText} >{scoreMsg}</Text>
+        </View>
+        <View style={styles.buttonContainer}>
+        <Button style={{  marginBottom: 5 }} title="Retake Quiz" onPress={() => resetQuiz()} />
+        <Button style={{ marginBottom: 10}} title="Go to the front of the Deck" onPress={() => navigation.goBack(null)} />
+        </View>
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  msgContainer: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  messageText: {
+    fontSize: 30,
+  },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: 'flex-end'
+  }
+})
 
 ScoreCardScreen.propTypes = {
   resetQuiz: PropTypes.func.isRequired,

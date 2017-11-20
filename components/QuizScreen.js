@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Animated, Text, StyleSheet, PanResponder, Dimensions } from 'react-native'
+import { View, Animated, Text, StyleSheet, PanResponder, Dimensions, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchDecks } from '../utils/api'
 import * as Utils from '../utils/utils'
@@ -8,6 +8,7 @@ import CardView from './CardView'
 import ScoreCard from './ScoreCard'
 import CardControls from './CardControls'
 import { Constants } from 'expo'
+import colors from '../utils/colors'
 
 
 const SCREEN_WIDTH = Dimensions.get('window').width
@@ -21,7 +22,7 @@ class QuizScreen extends Component {
   state = {
     cardIndex: 0,
     correct: 0,
-    cardHeight: 0,
+    cardHeight: 0
   }
 
   forceSwipe = direction => {
@@ -83,7 +84,7 @@ class QuizScreen extends Component {
   }
 
   resetQuiz = () => {
-    this.setState({ cardIndex:0, correct:0})
+    this.setState({ cardIndex: 0, correct: 0  })
   }
 
   handleGrade = answeredCorrectly => {
@@ -99,7 +100,15 @@ class QuizScreen extends Component {
   renderNoMoreCards() {
     const { correct } = this.state
     const { deck, deckIndex, navigation } = this.props
-    return <ScoreCard deck={deck} correct={correct} deckIndex={deckIndex} navigation={navigation} resetQuiz={this.resetQuiz} />
+    return (
+      <ScoreCard
+        deck={deck}
+        correct={correct}
+        deckIndex={deckIndex}
+        navigation={navigation}
+        resetQuiz={this.resetQuiz}
+      />
+    )
   }
 
   renderCards() {
@@ -116,7 +125,11 @@ class QuizScreen extends Component {
         return (
           <Animated.View
             key={i}
-            style={[this.getCardStyle(), styles.card, { zIndex: 99, height: this.state.cardHeight }]}
+            style={[
+              this.getCardStyle(),
+              styles.card,
+              { zIndex: 99, height: this.state.cardHeight }
+            ]}
             {...this._panResponder.panHandlers}
           >
             <CardView deck={deck} cardIndex={cardIndex} forceSwipe={this.forceSwipe} />
@@ -133,18 +146,25 @@ class QuizScreen extends Component {
   }
 
   handleUpdateHeight(event) {
-      console.log(event.nativeEvent.layout.height)
-      return this.setState({ cardHeight: event.nativeEvent.layout.height })
+    console.log(event.nativeEvent.layout.height)
+    const height = event.nativeEvent.layout.height - 30
+    return this.setState({ cardHeight: height })
   }
 
   render() {
+    const { cardIndex } = this.state
+    let { deck } = this.props
+
     return (
-      <View style={{flex:1}}>
-        <View onLayout={ event => this.handleUpdateHeight(event) } 
-        style={styles.cardsContainer}>{this.renderCards()}</View>
+      <View style={{  flex: 1  }}>
+        <View onLayout={event => this.handleUpdateHeight(event)} style={styles.cardsContainer}>
+          {this.renderCards()}
+        </View>
+        {(cardIndex < deck.questions.length) ?  (
         <View style={styles.controlsContainer}>
           <CardControls forceSwipe={this.forceSwipe} />
         </View>
+        ) : null}
       </View>
     )
   }
@@ -170,14 +190,26 @@ const styles = StyleSheet.create({
     position: 'absolute', //position always relative to parent
     flex: 1, //might need to change this.
 
-    width: SCREEN_WIDTH,
-    borderColor: 'black',
-    borderWidth: 2
+    width: SCREEN_WIDTH - 30,
+    margin: 15,
+    borderColor: colors.grey5,
+    borderWidth: 1,
+    ...Platform.select({
+      ios: {
+        shadowColor: 'rgba(0,0,0, .2)',
+        shadowOffset: { height: 0, width: 0 },
+        shadowOpacity: 1,
+        shadowRadius: 1,
+      },
+      android: {
+        elevation: 1,
+      },
+    })
   },
   cardsContainer: {
-    flex:1,
-    borderColor: 'blue',
-    borderWidth: 2
+    flex: 1,
+    //borderColor: 'blue',
+    //borderWidth: 2
   },
   controlsContainer: {
     height: CONTROLS_HEIGHT
