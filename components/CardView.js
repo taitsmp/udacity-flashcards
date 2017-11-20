@@ -61,8 +61,6 @@ class CardView extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //margin: 50,
-    borderRadius: 1,
     backgroundColor: 'white',
    
   },
@@ -73,6 +71,7 @@ const styles = StyleSheet.create({
   }, 
   msgContainer: {
     flex:2,
+    padding: 5,
     justifyContent: 'center',
     alignItems: 'center'
   },
