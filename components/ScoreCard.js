@@ -41,6 +41,7 @@ class ScoreCardScreen extends Component {
 const styles = StyleSheet.create({
   msgContainer: {
     flex: 2,
+    margin: 15,
     justifyContent: 'center',
     alignItems: 'center'
   },
