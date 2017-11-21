@@ -13,15 +13,39 @@ import { addNewDeck } from '../actions/decks'
 import { Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import * as Utils from '../utils/utils'
 
-//TODO: what feedback do I give the user once a deck is created?
-//should I navigate them to the new deck?
 
 class NewDeckScreen extends Component {
   state = {
     input: undefined,
-    missingInput: false
+    missingInput: false,
+    cancelDisabled: true
   }
-  handleSubmit() {
+  componentWillMount() {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => this.keyboardDidShow())
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => this.keyboardDidHide())
+  }
+
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+
+  keyboardDidShow() {
+    this.setState({
+      cancelDisabled: false
+    })
+  }
+
+  keyboardDidHide() {
+    this.setState({
+      cancelDisabled: true
+    })
+
+  }
+
+  async handleSubmit() {
+    let { navigation, decks } = this.props
+
     if (this.state.input == undefined) {
       this.setState({ missingInput: true })
     } else {
@@ -30,15 +54,19 @@ class NewDeckScreen extends Component {
         questions: []
       }
 
-      this.props.addNewDeck(deck)
-
-      Keyboard.dismiss()
-
+      Keyboard.dismiss() //needed this in Android (not iOS)
+      await this.props.addNewDeck(deck)
+      navigation.navigate('DeckScreen', { deck, deckIndex: decks.length })
+      
       this.setState({
         input: undefined,
         missingInput: false
       })
     }
+  }
+  handleCancel() {
+      Keyboard.dismiss()
+
   }
 
   handleTextChange(input) {
@@ -48,16 +76,18 @@ class NewDeckScreen extends Component {
   }
 
   render() {
-    const { inputMissing } = this.state
+    const { missingInput, cancelDisabled } = this.state
 
     return (
       <KeyboardAvoidingView behavior="padding">
         <FormLabel>Title</FormLabel>
         <FormInput onChangeText={text => this.handleTextChange(text)} value={this.state.input} />
-        {inputMissing === true && (
+        {missingInput === true && (
           <FormValidationMessage>Please enter a title.</FormValidationMessage>
         )}
-        <Button title="Submit" onPress={() => this.handleSubmit()} />
+        <Button title="Submit" buttonStyle={[ {marginBottom: 5}]} onPress={() => this.handleSubmit()} />
+        <Button title="Cancel" disabled={cancelDisabled} onPress={() => this.handleCancel()} />
+
       </KeyboardAvoidingView>
     )
   }
@@ -83,8 +113,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  return {}
+function mapStateToProps(decks, ownProps) {
+  
+  return {
+    decks
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewDeckScreen)

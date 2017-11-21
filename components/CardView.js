@@ -36,7 +36,7 @@ class CardView extends Component {
     const progressText = `${ind} of ${total}`
     return (
       <View>
-        <Text>{progressText}</Text>
+        <Text style={{fontSize: 10}}>{progressText}</Text>
       </View>
     )
   }
@@ -65,15 +65,14 @@ const styles = StyleSheet.create({
    
   },
   progressBar: {
-    height: 15,
-    flexDirection: 'row',
-    flex: 1
+    height: 20, 
+    margin: 10   
   }, 
   msgContainer: {
     flex:2,
     padding: 5,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   msgText: {
     fontSize: 30,

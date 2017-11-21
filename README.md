@@ -28,6 +28,14 @@ Sometimes you may need to reset or clear the React Native packager's cache. To d
 yarn start -- --reset-cache
 ```
 
+# Platforms Tested
+
+This App has been tested on
+
+* iOS 11, iPhone 6 Plus
+* iOS 11, iPhone X simulator
+* Nexus 5X, Android Studio Simulator
+
 # Credit
 
 Inspiration for this code was taken from the following repos.  
@@ -35,4 +43,4 @@ Inspiration for this code was taken from the following repos.
 * https://github.com/udacity/reactnd-UdaciFitness-complete/tree/app-prep
 * https://github.com/reactjs/redux/blob/master/examples/real-world
 * https://github.com/StephenGrider/AdvancedReactNative/tree/master/swipe
-
+* https://github.com/react-native-training/react-native-elements

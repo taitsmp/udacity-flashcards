@@ -32,8 +32,9 @@ class NewCardScreen extends Component {
       console.log('about to add a new card')
       this.props.addNewCard(deckIndex, card)
 
+      //should we dismiss the keyboard if there's an error too?
       Keyboard.dismiss()
-      
+
       this.setState({
         question: undefined,
         answer: undefined

@@ -17,12 +17,6 @@ class ScoreCardScreen extends Component {
     const numQuestions = deck.questions.length
     const scoreMsg = `You got ${correct} of ${numQuestions} questions correct.`
 
-    //          onPress={() => navigation.navigate('QuizScreen', { deck, deckIndex })}
-
-    //getStateForAction might be the right thing to do - https://github.com/react-community/react-navigation/issues/288pAction = NavigationActions.setParams({
-    //reset would also be a simple solution.  You just rebuild the entire navigation stack.  Should just be two things.
-    //https://github.com/react-community/react-navigation/issues/288
-    //goback(null) seems to work..
     return (
       <View style={{  flex: 1, borderRadius:1, backgroundColor: 'white', borderColor:'red', margin:10,  }}>
         <View style={styles.msgContainer}>

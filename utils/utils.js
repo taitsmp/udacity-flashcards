@@ -17,6 +17,12 @@ export function getProps(state, ownProps, names) {
     names = Array(names)
   }
 
+  /* TODO: Consider changing the order of where things get grabbed from
+  This order might be best:
+  1. ownProps
+  2. redux state
+  3. ownProps.navigation
+  */
   return names.reduce((acc, name) => {
     let prop = ownProps[name]
     if (prop === undefined && ownProps.navigation !== undefined) {
