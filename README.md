@@ -36,6 +36,10 @@ This App has been tested on
 * iOS 11, iPhone X simulator
 * Nexus 5X, Android Studio Simulator
 
+# Known Issues
+
+* On the "ScoreCard" view Android and iOS are not consistently displaying the margin of the message text.
+
 # Credit
 
 Inspiration for this code was taken from the following repos.  
