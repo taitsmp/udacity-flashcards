@@ -13,15 +13,7 @@ import FlashStatusBar from './components/FlashStatusBar'
 import { testFun, createDailyReminderNotifications } from './utils/utils'
 
 /*
-TODO: 
 
-* Titles on all pages
-  * only QuizScreen is missing a title. 
- * dragging card off screen, end of animatation is a little wonky.  Try not calling setState on height.
-  * clean up styling
-* ensure a simple install and use of yarn works. 
-* Test in android - genymotion sucks.  Try android studio - https://facebook.github.io/react-native/docs/getting-started.html
-* remove console.log statements
 
 
 STRETCH GOALS
@@ -51,7 +43,13 @@ Done
 * routing to 'go back and start a quiz' the back button should work correctly if you take the quiz over and over.
 * - the goback() functionality  in screen navigation prop of react-navigation likely fixes this. 
 * under the CardScreen is wrong.
-
+* Titles on all pages
+  * only QuizScreen is missing a title. 
+* dragging card off screen, end of animatation is a little wonky.  Try not calling setState on height.
+ * clean up styling
+* Test in android - genymotion sucks.  Try android studio - https://facebook.github.io/react-native/docs/getting-started.html
+* ensure a simple install and use of yarn works. 
+* remove console.log statements
 
 
 

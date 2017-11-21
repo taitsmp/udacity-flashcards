@@ -23,7 +23,6 @@ export const receiveDecks = decks => ({
 
 export const fetchDecks = () => dispatch =>
   StorageAPI.fetchDecks().then(decks => {
-    console.log(decks)
     dispatch(receiveDecks(decks))
   })
 

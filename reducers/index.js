@@ -9,10 +9,8 @@ function decksAndCards(state = {}, action) {
       return [ ...state, action.deck]
     }
     case NEW_CARD: {
-      //console.log('adding card to reducer state')
       const { deckIndex, card } = action
 
-      //console.log("deckIndex is " + deckIndex)
       let decks = state.slice() //makes a copy
       let deck = { ...decks[deckIndex] }
       let questions = deck.questions.slice()

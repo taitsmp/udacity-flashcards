@@ -84,15 +84,10 @@ export function clearDailyReminders() {
 
 //sets local notifications for the next day if no notifications exist.
 export function createDailyReminderNotifications() {
-  console.log('inside create reminder')
   checkDailyRemindersExists().then(exists => {
-    console.log('inside exists then')
-    console.log(exists)
     if (!exists) {
       Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
-        console.log(`status is ${status}`)
         if (status === 'granted') {
-          console.log('creating new local notifications')
           //I don't think think is needed but I guess you could have crashed before
           //recording that you saved created reminders
           Notifications.cancelAllScheduledNotificationsAsync()

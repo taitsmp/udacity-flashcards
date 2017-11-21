@@ -21,15 +21,12 @@ class NewCardScreen extends Component {
     answerMissing = !answer
     questionMissing = !question
 
-    console.log(answerMissing)
-    console.log(questionMissing)
     if (!answerMissing && !questionMissing) {
       const card = {
         question,
         answer
       }
 
-      console.log('about to add a new card')
       this.props.addNewCard(deckIndex, card)
 
       //should we dismiss the keyboard if there's an error too?

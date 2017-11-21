@@ -19,7 +19,7 @@ class CardView extends Component {
 
   renderQA(text, flipText) {
     return (
-      <View style={{flex:1}}>
+      <View style={{flex:1, marginLeft:10, marginRight: 10}}>
         <View style={styles.msgContainer} >
         <Text style={styles.msgText}>{text}</Text>
         </View>
@@ -42,7 +42,6 @@ class CardView extends Component {
   }
   render() {
     const { deck, cardIndex, forceSwipe } = this.props
-    console.log(deck)
     const { question, answer } = deck.questions[cardIndex]
     const { showAnswer } = this.state
     return (

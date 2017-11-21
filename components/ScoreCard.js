@@ -9,7 +9,6 @@ import { clearDailyReminders, createDailyReminderNotifications } from '../utils/
 
 class ScoreCardScreen extends Component {
   componentDidMount() {
-    console.log('inside scorecard')
     clearDailyReminders().then(createDailyReminderNotifications)
   }
   render() {
@@ -18,13 +17,21 @@ class ScoreCardScreen extends Component {
     const scoreMsg = `You got ${correct} of ${numQuestions} questions correct.`
 
     return (
-      <View style={{  flex: 1, borderRadius:1, backgroundColor: 'white', borderColor:'red', margin:10,  }}>
+      <View style={{ flex: 1, margin: 10, backgroundColor: 'white' }}>
         <View style={styles.msgContainer}>
-        <Text style={styles.messageText} >{scoreMsg}</Text>
+          <Text style={styles.messageText}>{scoreMsg}</Text>
         </View>
         <View style={styles.buttonContainer}>
-        <Button style={{  marginBottom: 5 }} title="Retake Quiz" onPress={() => resetQuiz()} />
-        <Button style={{ marginBottom: 10}} title="Go to the front of the Deck" onPress={() => navigation.goBack(null)} />
+          <Button
+            buttonStyle={{ marginBottom: 5 }}
+            title="Retake Quiz"
+            onPress={() => resetQuiz()}
+          />
+          <Button
+            buttonStyle={{ marginBottom: 10 }}
+            title="Go to the front of the Deck"
+            onPress={() => navigation.goBack(null)}
+          />
         </View>
       </View>
     )
@@ -38,11 +45,12 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   messageText: {
-    fontSize: 30,
+    fontSize: 30
   },
   buttonContainer: {
     flex: 1,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    marginBottom: 10
   }
 })
 

@@ -116,7 +116,6 @@ class QuizScreen extends Component {
     const numQuestions = deck.questions.length
     if (cardIndex >= numQuestions) return this.renderNoMoreCards()
 
-    console.log(deck)
     return deck.questions.map((c, i) => {
       let zIndex = numQuestions - i
       if (i < cardIndex) return null
@@ -142,7 +141,6 @@ class QuizScreen extends Component {
   }
 
   handleUpdateHeight(event) {
-    console.log(event.nativeEvent.layout.height)
     const height = event.nativeEvent.layout.height - 30
     return this.setState({ cardHeight: height })
   }
@@ -170,8 +168,7 @@ function mapStateToProps(state, ownProps) {
   const { navigation } = ownProps
   const props = Utils.getProps(state, ownProps, ['deck','deckIndex'])
   const { deckIndex } = props
-  console.log(state)
-  console.log(props)
+
   //consle.log()
   const out = {
     navigation,
@@ -185,7 +182,7 @@ const styles = StyleSheet.create({
     position: 'absolute', //position always relative to parent
     flex: 1, //might need to change this.
 
-    width: SCREEN_WIDTH - 30,
+    width: SCREEN_WIDTH - 30, //2* margin
     margin: 15,
     borderColor: colors.grey5,
     borderWidth: 1,
